@@ -2,7 +2,6 @@ version: "2"
 services:
   node-server:
     build:
-      context: ""
       dockerfile: Dockerfile
     ports:
       - 8080:8080
@@ -15,13 +14,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1111
       - POSTGRES_DB=test
-      - POSTGRES_HOST=db
+      - POSTGRES_HOST=postgresdb
       - POSTGRES_PORT=5432
       - PORT=8080
       - REDIS_PORT=6379
       - REDIS_HOST=redis
       - MESSAGE=app
-  db:
+  
+  postgresdb:
     image: postgres
     restart: always
     ports:
