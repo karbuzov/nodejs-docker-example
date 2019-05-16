@@ -1,0 +1,34 @@
+version: "2"
+services:
+  node-server:
+    build:
+      context: ""
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;  nodemon ./src/index.js --exec "node --require '@babel/register'"'
+    depends_on:
+      - db
+    volumes:
+      - ./node_modules:/usr/src/app/node_modules
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_DB=test
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - PORT=8080
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - MESSAGE=app
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_DB=test
+    volumes:
+      - ./data:/var/lib/postgresql/data

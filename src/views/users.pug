@@ -1,0 +1,10 @@
+html
+    head
+        title= title
+    body
+        .users
+            each user in users
+                div
+                    b= user.firstName
+                    b= user.lastName
+                    i= user.email
