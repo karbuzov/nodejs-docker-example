@@ -12,6 +12,7 @@ COPY babel.config.js /usr/src/app/
 RUN npm install
 
 COPY src ./src
+COPY start.sh /
 
 EXPOSE 8080
 ENV PORT 8080

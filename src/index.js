@@ -1,5 +1,5 @@
 import "@babel/polyfill";
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import http from 'http';
 import debug from 'debug';
 import app from './app';
