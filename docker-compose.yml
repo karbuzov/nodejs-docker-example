@@ -6,12 +6,18 @@ services:
       context: app
     ports:
       - 8080:8080
-#    command: "node -i && nodemon ./src/index.js"
+#    command: "nodemon ./src/index.js"
     command: bash /start.sh
     depends_on:
       - postgresdb
     volumes:
       - ./node_modules:/usr/src/app/node_modules
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_DB=test
+      - POSTGRES_HOST=postgresdb
+      - POSTGRES_PORT=543
   
   postgresdb:
     image: postgres
@@ -34,8 +40,6 @@ services:
 #       - ./prodobavki.com/:/var/www/html/:ro
 #       - /nginxcache/:/etc/nginx/cache/
 #       - ./certs/letsencrypt/:/certs/
-    depends_on:
-      - node-server
     ports:
        - "80:80"
        - "443:443"

@@ -10,7 +10,7 @@ COPY src ./src
 
 RUN npm install
 
-RUN npm i -g nodemon dotenv @babel/register knex
+RUN npm i -g nodemon dotenv knex
 COPY start.sh /
 
 EXPOSE 8080
