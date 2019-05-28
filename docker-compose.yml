@@ -1,12 +1,9 @@
 version: "2"
 services:
-#  node-test:
-#    build:
-#      context: node-test
-      
+
   node-server:
     build:
-      context: ./
+      context: app
     ports:
       - 8080:8080
 #    command: "node -i && nodemon ./src/index.js"
@@ -15,16 +12,6 @@ services:
       - postgresdb
     volumes:
       - ./node_modules:/usr/src/app/node_modules
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1111
-      - POSTGRES_DB=test
-      - POSTGRES_HOST=postgresdb
-      - POSTGRES_PORT=5432
-      - PORT=8080
-      - REDIS_PORT=6379
-      - REDIS_HOST=redis
-      - MESSAGE=app
   
   postgresdb:
     image: postgres
@@ -36,7 +23,7 @@ services:
       - POSTGRES_PASSWORD=1111
       - POSTGRES_DB=test
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./postgresdb:/var/lib/postgresql/data
       
   nginx:
 #    image: nginx:1.11.6
@@ -54,6 +41,4 @@ services:
        - "443:443"
     links:
       - node-server
-#    logging:
-#        driver: syslog
     restart: always
